@@ -299,4 +299,7 @@ p.text-comment{
 }
 .remembermelabel{
 	font-size: 12px;
+	display: flex;
+	margin-top: -52px;
+	margin-right: 30px;
 }

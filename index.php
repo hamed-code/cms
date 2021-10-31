@@ -1,3 +1,6 @@
+<?php
+    require_once 'database/db.php';
+?>
 <html lang="fa">
 
 <head>

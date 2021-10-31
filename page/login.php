@@ -58,7 +58,8 @@
                 <form method="POST" class="register-form">
                     <input type="email" placeholder="ایمیل">
                     <input type="password" placeholder="رمز عبور"><br>
-                    <input type="checkbox" class="rememberme" ><span class="remembermelabel">مرا به خاطر بسپار</span>
+                    <input type="checkbox" class="rememberme" >
+                    <label class="remembermelabel">مرا به خاطر بسپار</label>
                     <input type="submit" value="ثبت نام" class="btn btn-primary submit-register">
                 </form>
             </div>
