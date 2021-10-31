@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
+
 <body>
     <div class="container">
         <br>
@@ -391,5 +392,4 @@
 </body>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
 </html>

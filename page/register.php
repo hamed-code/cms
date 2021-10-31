@@ -1,3 +1,26 @@
+<?php
+require_once '../database/db.php';
+
+$successmassege = null;
+if (isset($_POST['sub'])) {
+    $name = $_POST['username'];
+    $email = $_POST['email'];
+    $age = $_POST['age'];
+    $password = $_POST['password'];
+
+    $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
+    $result->bindValue(1, $name);
+    $result->bindValue(2, $email);
+    $result->bindValue(3, $age);
+    $result->bindValue(4, $password);
+    $result->execute();
+    $successmassege = true;
+}
+
+
+?>
+
+
 <html lang="fa">
 
 <head>
@@ -5,7 +28,7 @@
     <title>weblog</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -15,8 +38,7 @@
         <!-- start headers -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">وبلاگ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -29,8 +51,7 @@
                         <a class="nav-link" href="#">پروفایل</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             مقالات
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
@@ -41,34 +62,32 @@
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mr-auto">
-                    <input class="form-control mr-sm-2 placholder" type="search" placeholder="دنبال چی میگردی؟"
-                        aria-label="Search">
+                    <input class="form-control mr-sm-2 placholder" type="search" placeholder="دنبال چی میگردی؟" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
                 </form>
             </div>
         </nav>
     </div>
     <!-- end headers -->
-    
-<br><br><br><br><br>
+
+    <br><br><br><br><br>
     <div class="container">
         <div class="row">
             <div class="col-lg-4"></div>
             <div class="col-12 col-lg-4">
                 <form method="POST" class="register-form">
-                    <input type="text" placeholder="نام کاربری">
-                    <input type="email" placeholder="ایمیل">
-                    <input type="number" placeholder="سن">
-                    <input type="password" placeholder="رمز عبور"><br>
-                    <input type="submit" value="ثبت نام" class="btn btn-primary submit-register">
+                    <input name="username" type="text" placeholder="نام کاربری">
+                    <input name="email" type="email" placeholder="ایمیل">
+                    <input name="age" type="number" placeholder="سن">
+                    <input name="password" type="password" placeholder="رمز عبور"><br>
+                    <input name="sub" type="submit" value="ثبت نام" class="btn btn-primary submit-register">
                 </form>
             </div>
             <div class="col-lg-4"></div>
         </div>
     </div>
 
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- footer my website -->
 
     <footer>
@@ -99,6 +118,17 @@
 
 
 </body>
+<?php if ($successmassege) { ?>
+
+    <script>
+        Swal.fire(
+            'Good job!',
+            'ثبت نام با موفقیت انجام شد.',
+            'success'
+        )
+    </script>
+
+<?php } ?>
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
