@@ -81,6 +81,7 @@ if (isset($_POST['sub'])) {
                     <input name="age" type="number" placeholder="سن">
                     <input name="password" type="password" placeholder="رمز عبور"><br>
                     <input name="sub" type="submit" value="ثبت نام" class="btn btn-primary submit-register">
+                    <a href="login.php" class="btn btn-primary submit-register">وارد شدن</a>
                 </form>
             </div>
             <div class="col-lg-4"></div>

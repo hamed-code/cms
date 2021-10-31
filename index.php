@@ -1,5 +1,6 @@
 <?php
     require_once 'database/db.php';
+
 ?>
 <html lang="fa">
 
@@ -31,6 +32,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">پروفایل</a>
                     </li>
+                    <?php if(isset($_SESSION['login'])) { ?>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,6 +44,11 @@
                             <a class="dropdown-item" href="#">طراحی وب</a>
                             <a class="dropdown-item" href="#">بازی سازی</a>
                         </div>
+                    </li>
+
+                    <?php } ?>
+                    <li>
+                        <a href="page/logout.php">خروج</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mr-auto">

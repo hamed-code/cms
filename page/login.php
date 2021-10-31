@@ -1,3 +1,28 @@
+<?php
+
+require_once '../database/db.php';
+
+if (isset($_POST['sub'])) {
+    $Error = null;
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $result = $conn->prepare("SELECT * FROM `user` WHERE email = ? and password = ?");
+    $result->bindValue(1, $email);
+    $result->bindValue(2, $password);
+    $result->execute();
+    if ($result->rowCount() >= 1) {
+        $rows = $result->fetch(PDO::FETCH_ASSOC);
+        $_SESSION['login'] = true;
+        $_SESSION['email'] = $email;
+        $_SESSION['password'] = $password;
+        header("Location: ../");
+    } 
+    else{
+        $Error = true;
+    }
+}
+
+?>
 <html lang="fa">
 
 <head>
@@ -6,6 +31,7 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/style.css">
     <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -15,8 +41,7 @@
         <!-- start headers -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">وبلاگ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -29,8 +54,7 @@
                         <a class="nav-link" href="#">پروفایل</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             مقالات
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
@@ -41,8 +65,7 @@
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mr-auto">
-                    <input class="form-control mr-sm-2 placholder" type="search" placeholder="دنبال چی میگردی؟"
-                        aria-label="Search">
+                    <input class="form-control mr-sm-2 placholder" type="search" placeholder="دنبال چی میگردی؟" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
                 </form>
             </div>
@@ -56,13 +79,14 @@
             <div class="col-lg-4"></div>
             <div class="col-12 col-lg-4">
                 <form method="POST" class="register-form">
-                    <input type="email" placeholder="ایمیل">
-                    <input type="password" placeholder="رمز عبور"><br>
-                    <input type="checkbox" class="rememberme" >
+                    <input name="email" type="email" placeholder="ایمیل">
+                    <input name="password" type="password" placeholder="رمز عبور"><br>
+                    <input name="rem" type="checkbox" class="rememberme">
                     <label class="remembermelabel">مرا به خاطر بسپار</label>
-                    <input type="submit" value="ثبت نام" class="btn btn-primary submit-register">
+                    <input name="sub" type="submit" value="وارد شدن" class="btn btn-primary submit-register">
+                    <a href="register.php" class="btn btn-primary submit-register">ثبت نام</a>
                 </form>
-            </div>
+            </div> 
             <div class="col-lg-4"></div>
         </div>
     </div>
@@ -99,6 +123,18 @@
 
 
 </body>
+<?php if ($Error) { ?>
+
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'مقادیر غلط وارد شدند!',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    </script>
+
+<?php } ?>
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
