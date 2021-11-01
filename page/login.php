@@ -15,6 +15,13 @@ if (isset($_POST['sub'])) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
+        if(isset($_POST['rem'])){
+            setcookie("email", $_SESSION['email'], time()+60*60*24*7, '/');
+            setcookie("password", $_SESSION['password'], time()+60*60*24*7, '/');
+        }
+        else{
+            echo 0;
+        }
         header("Location: ../");
     } 
     else{

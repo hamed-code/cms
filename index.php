@@ -37,19 +37,27 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            مقالات
+                            حساب کاربری
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">برنامه نویسی</a>
-                            <a class="dropdown-item" href="#">طراحی وب</a>
+                            <a class="dropdown-item" href="#"></a>
+                            <a class="dropdown-item" href="#"><?= $_SESSION['email'] ?></a>
                             <a class="dropdown-item" href="#">بازی سازی</a>
                         </div>
                     </li>
-
-                    <?php } ?>
                     <li>
                         <a href="page/logout.php">خروج</a>
                     </li>
+                    <?php }else{ ?>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="page/login.php">ورود <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="page/register.php">ثبت نام<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <?php } ?>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mr-auto">
                     <input class="form-control mr-sm-2 placholder" type="search" placeholder="دنبال چی میگردی؟"
