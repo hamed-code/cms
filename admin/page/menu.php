@@ -1,19 +1,23 @@
 <?php
 
-    require_once '../../database/db.php';
+require_once '../../database/db.php';
+$number = 1;
+if (isset($_POST['sub'])) {
 
-    if(isset($_POST['sub'])){
+    $title = $_POST['title'];
+    $sort = $_POST['sort'];
+    $rd = $_POST['rd'];         //status
 
-        $title = $_POST['title'];
-        $sort = $_POST['sort'];
-        $rd = $_POST['rd'];         //status
+    $result = $conn->prepare("INSERT INTO `menu` SET title = ?, sort = ?, status = ?");
+    $result->bindValue(1, $title);
+    $result->bindValue(2, $sort);
+    $result->bindValue(3, $rd);
+    $result->execute();
+}
 
-        $result = $conn->prepare("INSERT INTO `menu` SET title = ?, sort = ?, status = ?");
-        $result->bindValue(1, $title);
-        $result->bindValue(2, $sort);
-        $result->bindValue(3, $rd);
-        $result->execute();
-    }
+$all = $conn->prepare("SELECT * FROM menu");
+$all->execute();
+$menus = $all->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -62,7 +66,43 @@
                     </div>
                 </div> <br>
                 <input type="submit" name="sub" class="btn btn-primary" value="ثبت">
-            </form>
+            </form> <br><br>
+            <table class="table table-striped">
+                <thead>
+
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">عنوان</th>
+                        <th scope="col">اولویت بندی</th>
+                        <th scope="col">وضعیت</th>
+                        <th scope="col">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($menus as $menu) { ?>
+                        <tr>
+                            <th scope="row"><?= $number++ ?></th>
+                            <td><?= $menu['title'] ?></td>
+                            <td><?= $menu['sort'] ?></td>
+                            <td><?php if ($menu['status'] == 1) { ?>
+
+                                    <span class="btn btn-success" style="font-size: 12px;">فعال</span>
+
+                                <?php } else { ?>
+
+                                    <span class="btn btn-danger" style="font-size: 12px;">غیر فعال</span>
+
+                                <?php } ?>
+                            </td>
+                            
+                            <td>
+                                <a href="" class="btn btn-warning">ویرایش</a>
+                                <a href="" class="btn btn-danger">حذف</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 

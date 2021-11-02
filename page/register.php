@@ -1,6 +1,7 @@
 <?php
 require_once '../database/db.php';
 
+$Error = "";
 $successmassege = null;
 if (isset($_POST['sub'])) {
     $name = $_POST['username'];
@@ -8,13 +9,26 @@ if (isset($_POST['sub'])) {
     $age = $_POST['age'];
     $password = $_POST['password'];
 
-    $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
-    $result->bindValue(1, $name);
-    $result->bindValue(2, $email);
-    $result->bindValue(3, $age);
-    $result->bindValue(4, $password);
-    $result->execute();
-    $successmassege = true;
+    // $arr = false;
+    $query = "SELECT * FROM `user` WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $check = $stmt->execute([$email]);
+    if ($check) {
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (is_array($data) && count($data) > 0) {
+            echo $Error = "this email is exist";
+        }
+        
+       $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
+        $result->bindValue(1, $name);
+        $result->bindValue(2, $email);
+        $result->bindValue(3, $age);
+        $result->bindValue(4, $password);
+        $result->execute();
+        $successmassege = true; 
+    }
+        
+    
 }
 
 
@@ -128,8 +142,18 @@ if (isset($_POST['sub'])) {
             'success'
         )
     </script>
-
 <?php } ?>
+
+
+    <!-- <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            title: ' این ایمیل قبلا توسط کسی دیگر ثبت شده است',
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    </script> -->
+
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
