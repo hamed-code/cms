@@ -16,19 +16,17 @@ if (isset($_POST['sub'])) {
     if ($check) {
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (is_array($data) && count($data) > 0) {
-            echo $Error = "this email is exist";
+            $Error = true;
+        } else {
+            $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
+            $result->bindValue(1, $name);
+            $result->bindValue(2, $email);
+            $result->bindValue(3, $age);
+            $result->bindValue(4, $password);
+            $result->execute();
+            $successmassege = true;
         }
-        
-       $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
-        $result->bindValue(1, $name);
-        $result->bindValue(2, $email);
-        $result->bindValue(3, $age);
-        $result->bindValue(4, $password);
-        $result->execute();
-        $successmassege = true; 
     }
-        
-    
 }
 
 
@@ -142,18 +140,17 @@ if (isset($_POST['sub'])) {
             'success'
         )
     </script>
-<?php } ?>
+<?php } elseif ($Error) { ?>
 
-
-    <!-- <script>
+    <script>
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             title: ' این ایمیل قبلا توسط کسی دیگر ثبت شده است',
             footer: '<a href="">Why do I have this issue?</a>'
         })
-    </script> -->
-
+    </script>
+<?php } ?>
 <script src="../js/jquery-3.5.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
