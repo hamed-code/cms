@@ -3,6 +3,7 @@
 require_once '../database/db.php';
 
 if (isset($_POST['sub'])) {
+
     $Error = null;
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -15,16 +16,14 @@ if (isset($_POST['sub'])) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
-        if(isset($_POST['rem'])){
-            setcookie("email", $_SESSION['email'], time()+60*60*24*7, '/');
-            setcookie("password", $_SESSION['password'], time()+60*60*24*7, '/');
-        }
-        else{
+        if (isset($_POST['rem'])) {
+            setcookie("email", $_SESSION['email'], time() + 60 * 60 * 24 * 7, '/');
+            setcookie("password", $_SESSION['password'], time() + 60 * 60 * 24 * 7, '/');
+        } else {
             echo 0;
         }
         header("Location: ../");
-    } 
-    else{
+    } else {
         $Error = true;
     }
 }
@@ -93,7 +92,7 @@ if (isset($_POST['sub'])) {
                     <input name="sub" type="submit" value="وارد شدن" class="btn btn-primary submit-register">
                     <a href="register.php" class="btn btn-primary submit-register">ثبت نام</a>
                 </form>
-            </div> 
+            </div>
             <div class="col-lg-4"></div>
         </div>
     </div>
@@ -130,6 +129,8 @@ if (isset($_POST['sub'])) {
 
 
 </body>
+
+<?php $HttpReferer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null; ?>
 <?php if ($Error) { ?>
 
     <script>
@@ -139,6 +140,16 @@ if (isset($_POST['sub'])) {
             text: 'مقادیر غلط وارد شدند!',
             footer: '<a href="">Why do I have this issue?</a>'
         })
+    </script>
+
+<?php } elseif ($HttpReferer == "http://localhost/cms/page/register.php") { ?>
+
+    <script>
+        Swal.fire(
+            'Good job!',
+            'ثبت نام با موفقیت انجام شد.',
+            'success'
+        )
     </script>
 
 <?php } ?>

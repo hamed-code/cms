@@ -1,34 +1,39 @@
-<?php
-require_once '../database/db.php';
+<?php require_once '../database/db.php';
 
-$Error = "";
-$successmassege = null;
-if (isset($_POST['sub'])) {
-    $name = $_POST['username'];
-    $email = $_POST['email'];
-    $age = $_POST['age'];
-    $password = $_POST['password'];
+if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['age']) && !empty($_POST['password'])) {
 
-    // $arr = false;
-    $query = "SELECT * FROM `user` WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $check = $stmt->execute([$email]);
-    if ($check) {
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (is_array($data) && count($data) > 0) {
-            $Error = true;
-        } else {
-            $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
-            $result->bindValue(1, $name);
-            $result->bindValue(2, $email);
-            $result->bindValue(3, $age);
-            $result->bindValue(4, $password);
-            $result->execute();
-            $successmassege = true;
+    // $_SERVER['HTTP_REFERER'] = "http://localhost/cms/page/login.php";
+    // $HttpReferer = "http://localhost/cms/page/register.php";
+    $Error = "";
+    $successmassege = null;
+    if (isset($_POST['sub'])) {
+        $name = $_POST['username'];
+        $email = $_POST['email'];
+        $age = $_POST['age'];
+        $password = $_POST['password'];
+
+        // $arr = false;
+        $query = "SELECT * FROM `user` WHERE email = ?";
+        $stmt = $conn->prepare($query);
+        $check = $stmt->execute([$email]);
+        if ($check) {
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (is_array($data) && count($data) > 0) {
+                $Error = true;
+            } else {
+                $result = $conn->prepare("INSERT INTO `user` SET `username` = ?, `email` = ?, `age` = ?, `password` = ?");
+                $result->bindValue(1, $name);
+                $result->bindValue(2, $email);
+                $result->bindValue(3, $age);
+                $result->bindValue(4, $password);
+                $result->execute();
+                // $HttpReferer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+                $successmassege = true;
+                header("Location: login.php");
+            }
         }
     }
 }
-
 
 ?>
 
@@ -93,7 +98,7 @@ if (isset($_POST['sub'])) {
                     <input name="age" type="number" placeholder="سن">
                     <input name="password" type="password" placeholder="رمز عبور"><br>
                     <input name="sub" type="submit" value="ثبت نام" class="btn btn-primary submit-register">
-                    <a href="login.php" class="btn btn-primary submit-register">وارد شدن</a>
+                    <!-- <a href="login.php" class="btn btn-primary submit-register">وارد شدن</a> -->
                 </form>
             </div>
             <div class="col-lg-4"></div>

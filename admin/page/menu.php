@@ -96,7 +96,7 @@ $menus = $all->fetchAll(PDO::FETCH_ASSOC);
                             </td>
                             
                             <td>
-                                <a href="" class="btn btn-warning">ویرایش</a>
+                                <a href="edit_menu.php?id=<?= $menu['id'] ?>" class="btn btn-warning">ویرایش</a>
                                 <a href="" class="btn btn-danger">حذف</a>
                             </td>
                         </tr>
