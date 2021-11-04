@@ -44,7 +44,7 @@ $menus = $all->fetchAll(PDO::FETCH_ASSOC);
                     <a class="nav-link" href="../page/blog.php">وبلاگ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../page/comment.php">کامنت</a>
+                    <a class="nav-link" href="../page/comment.php">نویسندگان</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Disabled</a>

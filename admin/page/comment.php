@@ -1,3 +1,16 @@
+<?php
+
+require_once '../../database/db.php';
+
+if (isset($_POST['sub'])) {
+
+    $name = $_POST['name'];
+    $result = $conn->prepare("INSERT INTO `writers` SET name = ?"); 
+    $result->bindValue(1, $name);
+    $result->execute();
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +25,6 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <ul class="nav nav-pills nav-fill">
@@ -23,12 +35,18 @@
                     <a class="nav-link" href="../page/blog.php">وبلاگ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">کامنت</a>
+                    <a class="nav-link active" href="#">نویسندگان</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
             </ul>
+        </div><br>
+        <div class="row">
+            <form method="POST"><br>
+                <input type="text" name="name" placeholder="نام و نام خانوادگی" class="form-control"><br>
+                <input type="submit" name="sub" class="btn btn-primary" value="ثبت">
+            </form> <br><br>
         </div>
     </div>
 
