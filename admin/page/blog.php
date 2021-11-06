@@ -2,6 +2,24 @@
 
 require_once '../../database/db.php';
 
+if (isset($_POST['sub'])) {
+
+    $title = $_POST['title'];
+    $image = $_POST['image'];
+    $content = $_POST['content'];
+    $tag = $_POST['tag'];
+    $writer = $_POST['writer'];
+
+    $result = $conn->prepare("INSERT INTO `post` SET title = ?, image = ?, content = ?, tag = ?, writer = ?,date = ?");
+    $result->bindValue(1, $title);
+    $result->bindValue(2, $image);  
+    $result->bindValue(3, $content);
+    $result->bindValue(4, $tag);
+    $result->bindValue(5, $writer);
+    $result->bindValue(6, jdate('Y/m/d'));
+    $result->execute();
+}
+
 $all = $conn->prepare("SELECT * FROM writers");
 $all->execute();
 $writers = $all->fetchAll(PDO::FETCH_ASSOC);
@@ -9,7 +27,6 @@ $writers = $all->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
