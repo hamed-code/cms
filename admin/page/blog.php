@@ -5,6 +5,7 @@ require_once '../../database/db.php';
 if ($_SESSION['role'] != 2) {
     header("Location: ../index.php");
 }
+$number = 1;
 if (isset($_POST['sub'])) {
 
     $title = $_POST['title'];
@@ -26,6 +27,10 @@ if (isset($_POST['sub'])) {
 $all = $conn->prepare("SELECT * FROM writers");
 $all->execute();
 $writers = $all->fetchAll(PDO::FETCH_ASSOC);
+
+$all = $conn->prepare("SELECT * FROM post");
+$all->execute();
+$posts = $all->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -86,6 +91,38 @@ $writers = $all->fetchAll(PDO::FETCH_ASSOC);
                 <br>
                 <input type="submit" value="ثابت" name="sub" class="btn btn-primary">
             </form>
+        </div>
+        <br>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">عنوان</th>
+                        <th scope="col">تصویر</th>
+                        <th scope="col">نویسندگان</th>
+                        <th scope="col">تاریخ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($posts as $post) { ?>
+                    <tr>
+                        <th scope="row"><?= $number++ ?></th>
+                        <td><?= $post['title'] ?></td>
+                        <td><img src="<?= $post['image'] ?>" height="100px" alt=""></td>
+                        
+                        <td><?php foreach($writers as $writer) { if($post['writer'] == $writer['id']) { echo $writer['name']; } } ?><td>
+
+                        <td><?= $post['date'] ?></td>
+                        <td>
+                                <a href="edit_menu.php?id=<?= $post['id'] ?>" class="btn btn-warning">ویرایش</a>
+                                <a href="delete_menu.php?id=<?= $post['id'] ?>" class="btn btn-danger">حذف</a>
+
+                        </td>
+                    </tr> 
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 

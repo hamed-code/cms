@@ -1,6 +1,7 @@
 <?php
+    require_once '../database/db.php';
 
-    if($_SESSION['role'] != 2){
+    if(isset($_SESSION['role']) != 2){
         header("Location: ../index.php");
     }
 
