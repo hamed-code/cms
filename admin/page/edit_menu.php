@@ -2,6 +2,9 @@
 
 require_once '../../database/db.php';
 
+if ($_SESSION['role'] != 2) {
+    header("Location: ../index.php");
+}
 $id = $_GET['id'];
 if (isset($_POST['sub'])) {
     $title = $_POST['title'];
@@ -43,14 +46,14 @@ $menu = $all->fetch(PDO::FETCH_ASSOC);
         <div class="row" style="padding: 30px;">
             <form method="POST"><br>
                 <input type="text" name="title" placeholder="عنوان" class="form-control" value="<?= $menu['title'] ?>"><br>
-                <input type="number" name="sort" placeholder="الویت بندی" class="form-control" value="<?= $menu['sort'] ?>"> 
+                <input type="number" name="sort" placeholder="الویت بندی" class="form-control" value="<?= $menu['sort'] ?>">
                 <div class="form-check form-switch">
                     <div class="custom-control custom-radio"><br>
-                        <input type="radio" value="1" id="customRadio1" name="rd" class="custom-control-input" <?php if($menu['status'] == 1) { ?> checked <?php } ?>>
+                        <input type="radio" value="1" id="customRadio1" name="rd" class="custom-control-input" <?php if ($menu['status'] == 1) { ?> checked <?php } ?>>
                         <label class="custom-control-label" for="customRadio1">فعال</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" value="0" id="customRadio2" name="rd" class="custom-control-input" <?php if($menu['status'] == 0) { ?> checked <?php } ?>>
+                        <input type="radio" value="0" id="customRadio2" name="rd" class="custom-control-input" <?php if ($menu['status'] == 0) { ?> checked <?php } ?>>
                         <label class="custom-control-label" for="customRadio2">غیر فعال</label>
                     </div>
                 </div> <br>

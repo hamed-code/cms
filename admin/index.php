@@ -1,3 +1,10 @@
+<?php
+
+    if($_SESSION['role'] != 2){
+        header("Location: ../index.php");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

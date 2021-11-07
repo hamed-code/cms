@@ -2,6 +2,9 @@
 
 require_once '../../database/db.php';
 
+if ($_SESSION['role'] != 2) {
+    header("Location: ../index.php");
+}
 if (isset($_POST['sub'])) {
 
     $title = $_POST['title'];
@@ -12,7 +15,7 @@ if (isset($_POST['sub'])) {
 
     $result = $conn->prepare("INSERT INTO `post` SET title = ?, image = ?, content = ?, tag = ?, writer = ?,date = ?");
     $result->bindValue(1, $title);
-    $result->bindValue(2, $image);  
+    $result->bindValue(2, $image);
     $result->bindValue(3, $content);
     $result->bindValue(4, $tag);
     $result->bindValue(5, $writer);
@@ -27,6 +30,7 @@ $writers = $all->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,7 +77,7 @@ $writers = $all->fetchAll(PDO::FETCH_ASSOC);
                 </script><br>
                 <input type="text" name="tag" class="form-control" placeholder="برچسب ها">
                 <select name="writer" class="form-control">
-                    <?php foreach($writers as $writer){ ?>
+                    <?php foreach ($writers as $writer) { ?>
 
                         <option value="<?= $writer['id'] ?>"><?= $writer['name'] ?></option>
 

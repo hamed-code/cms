@@ -2,10 +2,13 @@
 
 require_once '../../database/db.php';
 
+if ($_SESSION['role'] != 2) {
+    header("Location: ../index.php");
+}
 if (isset($_POST['sub'])) {
 
     $name = $_POST['name'];
-    $result = $conn->prepare("INSERT INTO `writers` SET name = ?"); 
+    $result = $conn->prepare("INSERT INTO `writers` SET name = ?");
     $result->bindValue(1, $name);
     $result->execute();
 }

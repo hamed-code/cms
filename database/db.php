@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../js/jdf.php';
+// include '../js/jdf.php';
 
 $servername = "localhost";
 $username = "root";
@@ -25,5 +25,6 @@ if(isset($_COOKIE['email'])){
         $_SESSION['login'] = true;
         $_SESSION['email'] = $_COOKIE['email'];
         $_SESSION['password'] = $_COOKIE['password'];
+        $_SESSION['role'] = $rows['role'];
     }
 }

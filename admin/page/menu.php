@@ -1,6 +1,9 @@
 <?php
 
 require_once '../../database/db.php';
+if ($_SESSION['role'] != 2) {
+    header("Location: ../index.php");
+}
 $number = 1;
 if (isset($_POST['sub'])) {
 
@@ -94,7 +97,7 @@ $menus = $all->fetchAll(PDO::FETCH_ASSOC);
 
                                 <?php } ?>
                             </td>
-                            
+
                             <td>
                                 <a href="edit_menu.php?id=<?= $menu['id'] ?>" class="btn btn-warning">ویرایش</a>
                                 <a href="delete_menu.php?id=<?= $menu['id'] ?>" class="btn btn-danger">حذف</a>

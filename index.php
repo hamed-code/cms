@@ -1,6 +1,5 @@
 <?php
     require_once 'database/db.php';
-
 ?>
 <html lang="fa">
 
@@ -40,9 +39,12 @@
                             حساب کاربری
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#"></a>
                             <a class="dropdown-item" href="#"><?= $_SESSION['email'] ?></a>
-                            <a class="dropdown-item" href="#">بازی سازی</a>
+                            <?php if($_SESSION['role'] == 2) { ?>
+
+                            <a class="dropdown-item" href="admin/index.php">پنل ادمین</a>
+
+                            <?php } ?>
                         </div>
                     </li>
                     <li>
