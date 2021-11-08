@@ -115,8 +115,8 @@ $posts = $all->fetchAll(PDO::FETCH_ASSOC);
 
                         <td><?= $post['date'] ?></td>
                         <td>
-                                <a href="edit_menu.php?id=<?= $post['id'] ?>" class="btn btn-warning">ویرایش</a>
-                                <a href="delete_menu.php?id=<?= $post['id'] ?>" class="btn btn-danger">حذف</a>
+                                <a href="edit_post.php?id=<?= $post['id'] ?>" class="btn btn-warning">ویرایش</a>
+                                <a href="edit_post.php?id=<?= $post['id'] ?>" class="btn btn-danger">حذف</a>
 
                         </td>
                     </tr> 
