@@ -1,5 +1,6 @@
 <?php
 require_once '../../database/db.php';
+require_once '../../js/jdf.php';
 $id = $_GET['id'];
 
 if (isset($_POST['sub'])) {

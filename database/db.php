@@ -1,13 +1,13 @@
 <?php
 session_start();
-include '../../js/jdf.php';
 
 $servername = "localhost";
 $username = "root";
 $password = "";
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=cms", $username, $password);
+  $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
+  $conn = new PDO("mysql:host=$servername;dbname=cms", $username, $password, $options);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch(PDOException $e) {

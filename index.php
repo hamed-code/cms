@@ -1,5 +1,20 @@
 <?php
     require_once 'database/db.php';
+
+    $result = $conn->prepare("SELECT COUNT(id) FROM post");
+    $result->execute();
+    $num_posts = $result->fetch();
+    foreach($num_posts as $num_post){};     //$num_post = count
+
+    $result = $conn->prepare("SELECT COUNT(id) FROM writers");
+    $result->execute();
+    $num_writers = $result->fetch();
+    foreach($num_writers as $num_writer){};     
+
+    $result = $conn->prepare("SELECT COUNT(id) FROM user");
+    $result->execute();
+    $num_users = $result->fetch();
+    foreach($num_users as $num_user){};     
 ?>
 <html lang="fa">
 
@@ -47,7 +62,7 @@
                             <?php } ?>
                         </div>
                     </li>
-                    <li>
+                    <li class="mt-2">
                         <a href="page/logout.php">خروج</a>
                     </li>
                     <?php }else{ ?>
@@ -77,15 +92,15 @@
                 <div class="col-4 information-site">
                     <img src="image/stat-time.svg" alt="">
                     <span>تعداد مقالات</span>
-                    <span>۱۵</span>
+                    <span><?= $num_post ?></span>
                 </div>
                 <div class="col-4 information-site">
                     <img src="image/stat-teacher.svg" alt="">
-                    <span>نویسندگان ما ۵</span>
+                    <span>نویسندگان <?= $num_writer ?></span>
                 </div>
                 <div class="col-4 information-site">
                     <img src="image/stat-student.svg" alt="">
-                    <span>تعداد کاربران ۴۳۰</span>
+                    <span>تعداد کاربران <?= $num_user ?></span>
                 </div>
             </div>
         </div>
